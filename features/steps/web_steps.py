@@ -144,11 +144,7 @@ def step_impl(context, element_name, text_string):
     element.clear()
     element.send_keys(text_string)
 
-##################################################################
-# This code works because of the following naming convention:
-# The id of the search results table is 'search_results'
-##################################################################
-
+# This code works because of the following naming convention
 @then('I should see "{text}" in the search results')
 def step_impl(context, text):
     """ Check search results for a string """
