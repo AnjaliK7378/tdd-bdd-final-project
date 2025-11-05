@@ -22,13 +22,18 @@ from factory.fuzzy import FuzzyChoice, FuzzyDecimal
 from service.models import Product, Category
 
 
+# We use factory.Factory (not SQLAlchemyModelFactory) to keep it "dumb"
+# which prevents premature database writes and avoids the IntegrityError.
 class ProductFactory(factory.Factory):
     """Creates fake products for testing"""
 
     class Meta:
         """Maps factory to data model"""
-
         model = Product
 
     id = factory.Sequence(lambda n: n)
-   ## Add code to create Fake Products 
+    name = factory.Faker("company")
+    description = factory.Faker("sentence", nb_words=10)
+    price = FuzzyDecimal(10.00, 100.00)
+    available = factory.Faker("boolean")
+    category = FuzzyChoice(choices=list(Category))
